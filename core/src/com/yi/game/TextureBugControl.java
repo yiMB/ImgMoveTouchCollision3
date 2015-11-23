@@ -4,6 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 
+/**
+ * this class control and manage enemies in an Array,<br>
+ * add multiple enemies at once, option for change of speed,<br>
+ * use Sprite for image, so it can set size and animation later,<br>
+ * update and design enemy auto movement,<br>
+ * draw enemy to screen.
+ */
 public class TextureBugControl {
     Array<TextureBug> arrTextureBugs;
 
@@ -16,6 +23,9 @@ public class TextureBugControl {
         arrTextureBugs.add(textureBug);
     }
 
+    /**
+     * add n default enemies
+     */
     public void addNTextureBug(int n){
         while(n > 0){
             addTextureBug();
@@ -28,6 +38,9 @@ public class TextureBugControl {
         arrTextureBugs.add(textureBug);
     }
 
+    /**
+     * add n enemies with given speed change
+     */
     public void addNTextureBug(int n, float increaseVelocity){
         while(n > 0){
             addTextureBug(increaseVelocity);
@@ -35,12 +48,19 @@ public class TextureBugControl {
         }
     }
 
+    /**
+     * dispose all enemy Texture
+     */
     public void disposeBugs(){
         for(TextureBug textureBug : arrTextureBugs){
             textureBug.textureBug.dispose();
         }
     }
 
+    /**
+     * move enemy on each update call base on movement design inside this method and TextureBug setup,<br>
+     * bounce left and right, remove when reach bottom.
+     */
     public void update(){
         for(TextureBug textureBug : arrTextureBugs){
             if(textureBug.rectBugBorder.x <= 0){
@@ -132,6 +152,9 @@ public class TextureBugControl {
 //        }
     }
 
+    /**
+     * draw each enemies Sprite
+     */
     public void draw(SpriteBatch batch){
         for(TextureBug textureBug : arrTextureBugs){
             textureBug.spriteBug.draw(batch);

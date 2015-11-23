@@ -7,6 +7,9 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * this class contain all data of a enemy
+ */
 public class TextureBug {
     static Texture textureBug = new Texture(Gdx.files.internal("bug.png"));
     Rectangle rectBugBorder;
@@ -16,9 +19,12 @@ public class TextureBug {
     float velocity;
     static float spriteBugWidth = 100;
     static float spriteBugHeight = 50;
-    // when use Sprite to draw instead of SpriteBatch change to control's update and add draw
+    // when use Sprite to draw instead of SpriteBatch change the control's update sync with Rectangle and add draw
     Sprite spriteBug;
 
+    /**
+     * default constructor create enemy with default setup and speed
+     */
     public TextureBug(){
         rectBugBorder = new Rectangle();
         rectBugBorder.x = MathUtils.random(1, screenWidth - spriteBugWidth - 1);
@@ -36,6 +42,9 @@ public class TextureBug {
         spriteBug.setSize(spriteBugWidth, spriteBugHeight);
     }
 
+    /**
+     * constructor create enemy with change of speed
+     */
     public TextureBug(float increaseVelocity){
         rectBugBorder = new Rectangle();
         rectBugBorder.x = MathUtils.random(1, screenWidth - spriteBugWidth - 1);

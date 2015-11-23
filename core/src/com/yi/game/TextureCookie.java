@@ -6,6 +6,10 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * this class contain all data of a player bullet,<br>
+ * bullet y vector is going up because player shot upward.
+ */
 public class TextureCookie {
     static Texture textureCookie = new Texture(Gdx.files.internal("cookie.png"));
     Rectangle rectCookieBorder;
@@ -15,7 +19,7 @@ public class TextureCookie {
     float velocity;
     static float spriteCookieWidth = 20;
     static float spriteCookieHeight = 20;
-    // when use Sprite to draw instead of SpriteBatch change to control's update and add draw
+    // when use Sprite to draw instead of SpriteBatch change the control's update sync with Rectangle and add draw
     Sprite spriteCookie;
 
     public TextureCookie(Vector2 location){

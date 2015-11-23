@@ -1,11 +1,17 @@
 package com.yi.game;
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
+/**
+ * this class control and manage boss bullets in an Array,<br>
+ * add multiple boss bullets at once, option for change of speed,<br>
+ * use Sprite for image, so it can set size and animation later,<br>
+ * update and design boss bullets auto movement,<br>
+ * draw boss bullets to screen.
+ */
 public class TextureMoonControl {
     Array<TextureMoon> arrTextureMoons;
 
@@ -13,11 +19,21 @@ public class TextureMoonControl {
         arrTextureMoons = new Array<TextureMoon>();
     }
 
+    /**
+     * this method add 1 boss bullet, vector is 90 degree
+     */
     public void addTextureMoon(Vector2 location){
         TextureMoon textureMoon = new TextureMoon(location);
         arrTextureMoons.add(textureMoon);
     }
 
+    /**
+     * this method add 3 boss bullets at once each vectors are 120, 90, 60 degree.<br>
+     * velocity is -600f by default so:<br>
+     * textureMoon1 set y vector to 600 pixel (don't need to set already set as default)<br>
+     * textureMoon2 set x vector to 600 / 3 pixel, same y<br>
+     * textureMoon3 set x vector to 600 / -3 pixel, same y
+     */
     public void add3TextureMoons(Vector2 location){
         TextureMoon textureMoon1 = new TextureMoon(location);
         TextureMoon textureMoon2 = new TextureMoon(location);
@@ -42,12 +58,19 @@ public class TextureMoonControl {
 //        arrTextureMoons.add(textureMoon7);
     }
 
+    /**
+     * dispose all boss bullets Texture
+     */
     public void disposeMoons(){
         for(TextureMoon textureMoon : arrTextureMoons){
             textureMoon.textureMoon.dispose();
         }
     }
 
+    /**
+     * move boss bullet on each update call base on movement design inside this method and TextureMoon setup,<br>
+     * remove when reach edge of screen.
+     */
     public void update(){
         for(TextureMoon textureMoon : arrTextureMoons){
             if(textureMoon.rectMoonBorder.x <= 0){
@@ -69,6 +92,9 @@ public class TextureMoonControl {
         }
     }
 
+    /**
+     * draw each boss bullets Sprite
+     */
     public void draw(SpriteBatch batch){
         for(TextureMoon textureMoon : arrTextureMoons){
             textureMoon.spriteMoon.draw(batch);

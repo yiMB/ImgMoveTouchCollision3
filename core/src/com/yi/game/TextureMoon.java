@@ -7,6 +7,10 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * this class contain all data of a boss bullet,<br>
+ * bullet y vector is going down because boss shot downward.
+ */
 public class TextureMoon {
     static Texture textureMoon = new Texture(Gdx.files.internal("moon.png"));
     Rectangle rectMoonBorder;
@@ -16,7 +20,7 @@ public class TextureMoon {
     float velocity;
     static float spriteMoonWidth = 20;
     static float spriteMoonHeight = 20;
-    // when use Sprite to draw instead of SpriteBatch change to control's update and add draw
+    // when use Sprite to draw instead of SpriteBatch change the control's update sync with Rectangle and add draw
     Sprite spriteMoon;
 
     public TextureMoon(Vector2 location){

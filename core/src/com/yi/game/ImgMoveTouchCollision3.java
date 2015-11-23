@@ -9,6 +9,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
 
+/**
+ * this is the main class control and manage the whole game, mostly focus on interaction between object,<br>
+ * update each object position, draw object,<br>
+ * game rule, when should do what.
+ */
 public class ImgMoveTouchCollision3 extends ApplicationAdapter {
 	SpriteBatch batch;
 
@@ -73,7 +78,7 @@ public class ImgMoveTouchCollision3 extends ApplicationAdapter {
 		batch.dispose();
 		textureDroplet.textureDroplet.dispose();
 		background.dispose();
-		fontText.bitmapFontScore.dispose();
+		fontText.disposeBitmapFont();
 		textureBugControl.disposeBugs();
 		textureCheesecakeControl.disposeCheesecakes();
 		textureCookieControl.disposeCookies();
@@ -87,32 +92,19 @@ public class ImgMoveTouchCollision3 extends ApplicationAdapter {
 		draw();
 	}
 
-	// use when start and restart the game
-	public void resetGame(){
-		gameState = "play";
-		textureCookieControl.arrTextureCookies.clear();
-		textureMoonControl.arrTextureMoons.clear();
-		textureBugControl.arrTextureBugs.clear();
-		textureBugControl.addNTextureBug(numberOfBugs);
-		textureCheesecakeControl.arrTextureCheesecakes.clear();
-		textureCheesecakeControl.addNTextureCheesecake(1);
-		textureDroplet.reset();
-		score=0;
-		increaseVelocity=1;
-	}
-
-	//
-	public void respawnBugs(){
-		textureBugControl.arrTextureBugs.clear();
-		textureBugControl.addNTextureBug(numberOfBugs, increaseVelocity);
-	}
-
-	// future extra feature
-//	public void spawnCheesecake(){
-//		textureCheesecakeControl.arrTextureCheesecakes.clear();
-//		textureCheesecakeControl.addNTextureCheesecake(1);
-//	}
-
+	/**
+	 * part of render() method, update() method,<br>
+	 * check and change for current state of the game, update data of that state.<br>
+	 * on play state:<br>
+	 * -check finger touch to move player and shot.<br>
+	 * -update player position.<br>
+	 * -check enemies respawn according to score.<br>
+	 * -update enemies position.<br>
+	 * -update player bullet position.<br>
+	 * -check boss spawn according to score.<br>
+	 * -update boss position.<br>
+	 * -update boss bullet position.
+	 */
 	public void update() {
 		// touch screen to play game
 		if(gameState.equalsIgnoreCase("start")){
@@ -170,7 +162,7 @@ public class ImgMoveTouchCollision3 extends ApplicationAdapter {
 					return false;
 				}
 			});
-			// check bug respawn
+			// check enemies respawn
 			if(shouldRespawnBugs(scoreAllowBugRespawn)){
 				respawnBugs();
 			}
@@ -204,6 +196,17 @@ public class ImgMoveTouchCollision3 extends ApplicationAdapter {
 		}
 	}
 
+	/**
+	 * part of render() method, draw() method,<br>
+	 * check and change for current state of the game, update data of that state.<br>
+	 * on play state:<br>
+	 * -draw any object that should be draw on the screen.<br>
+	 * -detect collision, such as between enemy and player bullet, enemy and player, boss and player bullet, boss bullet and player.<br>
+	 * -remove object from their Array when you design fit, such as when object collide.<br>
+	 * -change score.<br>
+	 * -change enemy speed.<br>
+	 * -change and add any game play related which you design fit.
+	 */
 	public void draw(){
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -288,6 +291,9 @@ public class ImgMoveTouchCollision3 extends ApplicationAdapter {
 		}
 	}
 
+	/**
+	 * check when should enemy respawn
+	 */
 	public boolean shouldRespawnBugs(int scoreAllowBugRespawn){
 		if(textureBugControl.arrTextureBugs.size == 0 && score < scoreAllowBugRespawn){
 			return true;
@@ -295,11 +301,47 @@ public class ImgMoveTouchCollision3 extends ApplicationAdapter {
 		return false;
 	}
 
-	// not yet set detail rule, just score reach 10 and kill boss
+	/**
+	 * respawn enemies with speed change
+	 */
+	public void respawnBugs(){
+		textureBugControl.arrTextureBugs.clear();
+		textureBugControl.addNTextureBug(numberOfBugs, increaseVelocity);
+	}
+
+	/**
+	 * future extra feature respawn boss
+	 */
+//	public void spawnCheesecake(){
+//		textureCheesecakeControl.arrTextureCheesecakes.clear();
+//		textureCheesecakeControl.addNTextureCheesecake(1);
+//	}
+
+	/**
+	 * game over rule,<br></>
+	 * not yet set detail rule, just score reach 10 and kill boss
+	 */
 	public boolean shouldGameover(int maxScore){
 		if(score == maxScore){
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * reset all data to start of the game,<br>
+	 * use when start and restart the game
+	 */
+	public void resetGame(){
+		gameState = "play";
+		textureCookieControl.arrTextureCookies.clear();
+		textureMoonControl.arrTextureMoons.clear();
+		textureBugControl.arrTextureBugs.clear();
+		textureBugControl.addNTextureBug(numberOfBugs);
+		textureCheesecakeControl.arrTextureCheesecakes.clear();
+		textureCheesecakeControl.addNTextureCheesecake(1);
+		textureDroplet.reset();
+		score=0;
+		increaseVelocity=1;
 	}
 }

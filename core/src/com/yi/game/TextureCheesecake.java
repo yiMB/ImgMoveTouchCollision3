@@ -1,6 +1,5 @@
 package com.yi.game;
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -9,6 +8,9 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
 
+/**
+ * this class contain all data of a boss
+ */
 public class TextureCheesecake {
     static Texture textureCheesecake = new Texture(Gdx.files.internal("cheesecakeTrans.png"));
     Rectangle rectCheesecakeBorder;
@@ -20,9 +22,12 @@ public class TextureCheesecake {
     long lastTimeLoseLife;
     static float spriteCheesecakeWidth = 250;
     static float spriteCheesecakeHeight = 200;
-    // when use Sprite to draw instead of SpriteBatch change to control's update and add draw
+    // when use Sprite to draw instead of SpriteBatch change the control's update sync with Rectangle and add draw
     Sprite spriteCheesecake;
 
+    /**
+     * default constructor create boss with default setup and speed
+     */
     public TextureCheesecake(){
         rectCheesecakeBorder = new Rectangle();
         rectCheesecakeBorder.x = MathUtils.random(1, screenWidth - spriteCheesecakeWidth - 1);
@@ -43,6 +48,9 @@ public class TextureCheesecake {
         spriteCheesecake.setSize(spriteCheesecakeWidth, spriteCheesecakeHeight);
     }
 
+    /**
+     * constructor create boss with change of speed
+     */
 //    public TextureCheesecake(float increaseVelocity){
 //        rectCheesecakeBorder = new Rectangle();
 //        rectCheesecakeBorder.x = MathUtils.random(1, screenWidth - textureWidth - 1);
@@ -63,6 +71,9 @@ public class TextureCheesecake {
 //        spriteCheesecake.setSize(spriteCheesecakeWidthHeight, spriteCheesecakeWidthHeight);
 //    }
 
+    /**
+     * boss life decrease by 1 when call this method
+     */
     public void loseLife(){
         numberOFLife--;
     }

@@ -1,10 +1,16 @@
 package com.yi.game;
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 
+/**
+ * this class control and manage bosses in an Array,<br>
+ * add multiple bosses at once, option for change of speed,<br>
+ * use Sprite for image, so it can set size and animation later,<br>
+ * update and design boss auto movement,<br>
+ * draw boss to screen.
+ */
 public class TextureCheesecakeControl {
     Array<TextureCheesecake> arrTextureCheesecakes;
 
@@ -17,6 +23,9 @@ public class TextureCheesecakeControl {
         arrTextureCheesecakes.add(textureCheesecake);
     }
 
+    /**
+     * add n default bosses
+     */
     public void addNTextureCheesecake(int n){
         while(n > 0){
             addTextureCheesecake();
@@ -36,12 +45,19 @@ public class TextureCheesecakeControl {
 //        }
 //    }
 
+    /**
+     * dispose all boss Texture
+     */
     public void disposeCheesecakes(){
         for(TextureCheesecake textureCheesecake : arrTextureCheesecakes){
             textureCheesecake.textureCheesecake.dispose();
         }
     }
 
+    /**
+     * move boss on each update call base on movement design inside this method and TextureCheesecake setup,<br>
+     * bounce left, right, top, and 1/4 of bottom.
+     */
     public void update() {
         for (TextureCheesecake textureCheesecake : arrTextureCheesecakes) {
             if (textureCheesecake.rectCheesecakeBorder.x <= 0) {
@@ -64,6 +80,9 @@ public class TextureCheesecakeControl {
         }
     }
 
+    /**
+     * draw each bosses Sprite
+     */
     public void draw(SpriteBatch batch){
         for(TextureCheesecake textureCheesecake : arrTextureCheesecakes){
             textureCheesecake.spriteCheesecake.draw(batch);
